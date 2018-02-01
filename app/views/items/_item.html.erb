@@ -1,0 +1,16 @@
+<% @user.items.each do |item| %>
+  <div class="media" id="item">
+    <div class="media-body">
+      <h4 class="media-heading">
+        <% if current_user == @user %>
+          <%= link_to "", [current_user, item], method: :delete, remote: true, class: 'glyphicon glyphicon-ok' %>:
+        <% end %>
+        <%= item.description %>
+      </h4>
+      <p>
+        created <strong><%= time_ago_in_words(item.created_at) %></strong> ago.</br>
+        In <strong><%= distance_of_time_in_words(Time.now, item.created_at + 7.days )%></strong> item will be deleted.
+      </p>
+    </div>
+  </div>
+<% end %>

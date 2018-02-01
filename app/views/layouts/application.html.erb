@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blocitoff</title>
+    <%= csrf_meta_tags %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="container">
+      <ul class="nav nav-tabs">
+        <li><%= link_to "Blocitoff", welcome_path %></li>
+        <li><%= link_to "About", about_path %></li>
+        <li><%= link_to "Profile", current_user %></li>
+        <li><%= link_to "Users", users_path %></li>
+        <% if user_signed_in? %>
+          Signed in as: <strong><%= current_user.email %></strong> |
+          <li class="pull-right"><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+          <li class="pull-right"><%= link_to 'Edit profile', edit_user_registration_path %><li>
+        <% else %>
+          <li class="pull-right"><%= link_to "Sign In", new_user_session_path %></li>
+          <li class="pull-right"><%= link_to "Sign Up", new_user_registration_path %></li>
+        <% end %>
+      </ul>
+      <% if flash[:notice] %>
+        <div class='alert alert-success alert-dismissable'>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <%= flash[:notice] %>
+        </div>
+      <% elsif flash[:alert] %>
+        <div class='alert alert-warning alert-dismissable'>
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+    <%= yield %>
+  </div>
+  </body>
+</html>
